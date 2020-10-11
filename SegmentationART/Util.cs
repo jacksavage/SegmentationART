@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SegmentationART
 {
@@ -27,5 +29,8 @@ namespace SegmentationART
 
         public static double[] FuzzyIntersection(this double[] left, double[] right) =>
             left.ArrayFunc(right, Math.Min);
+
+        public static double CityBlockNorm(this IEnumerable<double> x) =>
+            x.Select(Math.Abs).Sum();
     }
 }
