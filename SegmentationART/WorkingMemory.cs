@@ -6,6 +6,7 @@ namespace SegmentationART
     {
         public double[] Output { get; }
         private readonly double Q;
+        private double R;
 
         public WorkingMemory(int inputSize, double q)
         {
@@ -24,6 +25,8 @@ namespace SegmentationART
             Array.Clear(Output, 0, inputSize);
             for (var i = inputSize; i < Output.Length; i++)
                 Output[i] = 1.0;
+
+            R = 1;
         }
 
         public void Add(int index)
@@ -36,9 +39,11 @@ namespace SegmentationART
             // its node weights to be dynamic)
 
             // update memory location for this index with a decaying activation
-            // note: index = r - 1
-            Output[index] = Math.Pow(Q, index);
+            Output[index] = Math.Pow(Q, R - 1.0);
             Output[Output.Length / 2 + index] = 1.0 - Output[index];
+
+            // increment R
+            R++;
         }
     }
 }
