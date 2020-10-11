@@ -17,15 +17,8 @@ namespace SegmentationART
             return result;
         }
 
-        public static V[] ArrayFunc<T, U, V>(this T[] left, U[] right, Func<T, U, V> func)
-        {
-            var result = new V[left.Length];
-
-            for (var i = 0; i < result.Length; i++)
-                result[i] = func(left[i], right[i]);
-
-            return result;
-        }
+        public static V[] ArrayFunc<T, U, V>(this T[] left, U[] right, Func<T, U, V> func) =>
+            ArrayFill(left.Length, i => func(left[i], right[i]));
 
         public static double[] FuzzyIntersection(this double[] left, double[] right) =>
             left.ArrayFunc(right, Math.Min);
