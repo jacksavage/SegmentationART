@@ -17,9 +17,9 @@ namespace SegmentationART
             return result;
         }
 
-        public static double[] ArrayFunc(this double[] left, double[] right, Func<double, double, double> func)
+        public static V[] ArrayFunc<T, U, V>(this T[] left, U[] right, Func<T, U, V> func)
         {
-            var result = new double[left.Length];
+            var result = new V[left.Length];
 
             for (var i = 0; i < result.Length; i++)
                 result[i] = func(left[i], right[i]);
