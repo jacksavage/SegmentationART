@@ -44,6 +44,8 @@ namespace SegmentationART
             // find a node to learn this input
             // the 'First' function will throw if none of the nodes pass the vigilance criterion
             // however, this should not occur bc the final node is "uncommitted" and should always pass
+            // cache 'fuzInt' so we don't need to recalculate it during learning
+            // store the 'id' so that we can return it to indicate which node learned the input
             var learnerQuery =
                 from id in Enumerable.Range(0, Nodes.Count)
                 let weights = Nodes[id]
