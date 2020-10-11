@@ -9,6 +9,8 @@ namespace SegmentationART
 
         public WorkingMemory(int inputSize, double q)
         {
+            if (q <= 0.0 || q >= 1.0) throw new ArgumentOutOfRangeException(nameof(q));
+
             Output = new double[inputSize * 2];
             Reset(inputSize);
 
