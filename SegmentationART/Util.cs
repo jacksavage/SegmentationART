@@ -32,5 +32,15 @@ namespace SegmentationART
 
         public static double CityBlockNorm(this IEnumerable<double> x) =>
             x.Select(Math.Abs).Sum();
+
+        public static T[] ArrayFill<T>(int size, Func<int, T> func)
+        {
+            var result = new T[size];
+            
+            for (var i = 0; i < result.Length; i++)
+                result[i] = func(i);
+            
+            return result;
+        }
     }
 }
