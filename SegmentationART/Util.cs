@@ -35,5 +35,12 @@ namespace SegmentationART
             
             return result;
         }
+
+        public static double[] Ones(int size) => FillNumber(size, 1.0);
+
+        public static double[] Zeros(int size) => FillNumber(size, 0.0);
+
+        private static double[] FillNumber(int size, double num) =>
+            ArrayFill(size, i => num);
     }
 }
