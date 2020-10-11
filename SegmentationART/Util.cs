@@ -24,5 +24,8 @@ namespace SegmentationART
 
             return result;
         }
+
+        public static double[] FuzzyIntersection(this double[] left, double[] right) =>
+            left.ArrayFunc(right, Math.Min);
     }
 }
