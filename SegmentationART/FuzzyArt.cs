@@ -23,7 +23,7 @@ namespace SegmentationART
 
             // add an uncommitted node
             // the last node will always be considered uncommitted
-            Nodes.Add(Util.Ones(inputLength));
+            Nodes.Add(Util.Ones(inputLength * 2));
 
             // store the params for reference later
             InputLength = inputLength;
@@ -58,7 +58,7 @@ namespace SegmentationART
 
             // if the uncommitted node was selected then a "reset" occurs
             // this means a new uncommitted node must be added
-            if (learner.id == Nodes.Count - 1) Nodes.Add(Util.Ones(InputLength));
+            if (learner.id == Nodes.Count - 1) Nodes.Add(Util.Ones(InputLength * 2));
 
             // learn the input
             for (int i = 0; i < learner.weights.Length; i++)
