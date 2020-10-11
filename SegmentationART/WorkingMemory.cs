@@ -27,6 +27,10 @@ namespace SegmentationART
 
             // note: index = r - 1
             Output[index] = Math.Pow(Q, index);
+
+            // todo could double the size of the memory and perform complement coding here
+            // which would give better performance bc the input wouldn't need to be recoded
+            // for every call to FuzzyArt.Learn
         }
     }
 }
