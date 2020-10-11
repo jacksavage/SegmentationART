@@ -23,7 +23,7 @@ namespace SegmentationART
 
             // add an uncommitted node
             // the last node will always be considered uncommitted
-            Nodes.Add(Util.Ones(inputLength * 2));
+            Nodes.Add(Util.Ones(inputLength));
 
             // store the params for reference later
             InputLength = inputLength;
@@ -38,9 +38,6 @@ namespace SegmentationART
             // todo replace exception with log message
             if (input.Length != InputLength) throw new ArgumentException(null, nameof(input));
 
-            // complement code the input
-            var codedInput = input.ComplementCode();
-
             // find a node to learn this input
             // the 'First' function will throw if none of the nodes pass the vigilance criterion
             // however, this should not occur bc the final node is "uncommitted" and should always pass
@@ -49,16 +46,16 @@ namespace SegmentationART
             var learnerQuery =
                 from id in Enumerable.Range(0, Nodes.Count)
                 let weights = Nodes[id]
-                let fuzInt = codedInput.FuzzyIntersection(weights)
+                let fuzInt = input.FuzzyIntersection(weights)
                 let fuzIntNorm = fuzInt.CityBlockNorm()
                 orderby fuzIntNorm / (Choice + weights.CityBlockNorm())
-                where fuzIntNorm / codedInput.CityBlockNorm() >= Vigilance
+                where fuzIntNorm / input.CityBlockNorm() >= Vigilance
                 select (id, weights, fuzInt);
             var learner = learnerQuery.First();
 
             // if the uncommitted node was selected then a "reset" occurs
             // this means a new uncommitted node must be added
-            if (learner.id == Nodes.Count - 1) Nodes.Add(Util.Ones(InputLength * 2));
+            if (learner.id == Nodes.Count - 1) Nodes.Add(Util.Ones(InputLength));
 
             // learn the input
             for (int i = 0; i < learner.weights.Length; i++)
