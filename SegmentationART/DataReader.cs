@@ -26,13 +26,13 @@ namespace SegmentationART
             let fields = line.Split("\t")
             select new Word(fields[0], fields[1]);
 
-        public static Dictionary<string, double[][]> ReadWordLookup(Dictionary<char, double[]> phonemes, string wordPath)
+        public static Dictionary<string, string[]> ReadWordLookup(Dictionary<char, double[]> phonemes, string wordPath)
         {
             var words =
                 ReadWords(wordPath)
                 .ToDictionary(
                     w => w.ID,
-                    w => w.Phonemes.Select(p => phonemes[p]).ToArray()
+                    w => w.Phonemes.Split(" ").ToArray()
                 );
 
             return words;
