@@ -15,6 +15,10 @@ namespace SegmentationART
             let vector = fields.Skip(2).Select(f => double.Parse(f)).ToArray()
             select new Phoneme(id[0], vector);
 
+        public static Dictionary<char, double[]> ReadPhonemeLookup(string path) =>
+            ReadPhonemes(path)
+            .ToDictionary(p => p.ID, p => p.Vector);
+
         private record Word(string ID, string Phonemes);
 
         private static IEnumerable<Word> ReadWords(string path) =>
@@ -22,12 +26,8 @@ namespace SegmentationART
             let fields = line.Split("\t")
             select new Word(fields[0], fields[1]);
 
-        public static Dictionary<string, double[][]> ReadWords(string phonemePath, string wordPath)
+        public static Dictionary<string, double[][]> ReadWordLookup(Dictionary<char, double[]> phonemes, string wordPath)
         {
-            var phonemes =
-                ReadPhonemes(phonemePath)
-                .ToDictionary(p => p.ID, p => p.Vector);
-
             var words =
                 ReadWords(wordPath)
                 .ToDictionary(

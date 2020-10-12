@@ -1,10 +1,7 @@
 ﻿using SegmentationART;
 
-var wordPhonemes = 
-    DataReader.ReadWords(
-        phonemePath: @"data\phonemes.tsv", 
-        wordPath: @"data\words.tsv"
-    );
+var phonemes = DataReader.ReadPhonemeLookup(@"data\phonemes.tsv");
+var words = DataReader.ReadWordLookup(phonemes, @"data\words.tsv");
 
 var phonemeArt =
     new FuzzyArt(
