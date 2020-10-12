@@ -68,5 +68,22 @@ namespace SegmentationART
             // return the ID (code) for the node which learned the input
             return learner.id;
         }
+
+        public int Predict(double[] input)
+        {
+            if (input.Length != InputLength) throw new ArgumentException(null, nameof(input));
+
+            // query the node with the strongest activation for this input
+            // does not consider the uncommitted node
+            // vigilance criterion does not need to be checked
+            var learnerQuery =
+                from id in Enumerable.Range(0, Nodes.Count - 1)
+                let weights = Nodes[id]
+                let fuzIntNorm = input.FuzzyIntersection(weights).CityBlockNorm()
+                orderby fuzIntNorm / (Choice + weights.CityBlockNorm())
+                select id;
+
+            return learnerQuery.First();
+        }
     }
 }
