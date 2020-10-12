@@ -1,4 +1,6 @@
 ﻿using SegmentationART;
+using System;
+using System.Diagnostics;
 
 var phonemes = DataReader.ReadPhonemeLookup(@"data\phonemes.tsv");
 var words = DataReader.ReadWordLookup(phonemes, @"data\words.tsv");
@@ -11,3 +13,8 @@ var phonemeArt =
         vigilance: 0.95     // one node per phoneme
     );
 
+Console.WriteLine("Training phoneme-ART");
+foreach (var phoneme in phonemes)
+    Console.WriteLine($"{phoneme.Key} : {phonemeArt.Learn(phoneme.Value)}");
+
+Debugger.Break();
