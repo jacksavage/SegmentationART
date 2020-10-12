@@ -23,6 +23,7 @@ namespace SegmentationART
 
             // add an uncommitted node
             // the last node will always be considered uncommitted
+            // todo should it be a vector of ones even if we are complement coding the input?
             Nodes.Add(Util.Ones(inputLength));
 
             // store the params for reference later
