@@ -12,8 +12,8 @@ namespace SegmentationART
             from line in File.ReadLines(path)
             let fields = line.Split("\t")
             let id = string.IsNullOrWhiteSpace(fields[1]) ? fields[0] : fields[1]
-            let vector = fields.Skip(2).Select(f => double.Parse(f)).ToArray()
-            select new Phoneme(id[0], vector);
+            let vector = fields.Skip(2).Take(7).Select(f => double.Parse(f)).ToArray()
+            select new Phoneme(id[0], vector.ComplementCode());
 
         public static Dictionary<char, double[]> ReadPhonemeLookup(string path) =>
             ReadPhonemes(path)
@@ -32,7 +32,7 @@ namespace SegmentationART
                 ReadWords(wordPath)
                 .ToDictionary(
                     w => w.ID,
-                    w => w.Phonemes.Select(p => phonemes[p].ComplementCode()).ToArray()
+                    w => w.Phonemes.Select(p => phonemes[p]).ToArray()
                 );
 
             return words;
