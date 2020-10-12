@@ -2,7 +2,6 @@
 using System;
 using System.Diagnostics;
 using System.Linq;
-using System.Runtime.InteropServices;
 
 var phonemes = DataReader.ReadPhonemeLookup(@"data\phonemes.tsv");
 var words = DataReader.ReadWordLookup(phonemes, @"data\words.tsv");
